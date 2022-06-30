@@ -1,0 +1,13 @@
+.pagination .selected{
+    background-color: rgb(59 130 246);
+    color: white;
+}
+.pagination button{
+    background-color:white;
+    color: black;
+    border: 1px solid gray;
+    margin: 0px 8px;
+    width: 20px;
+    border-radius: 15%;
+}
+
