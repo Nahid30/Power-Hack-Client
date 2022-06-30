@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Diane Head",
+      "email": "dianehead@quarx.com",
+      "phone": "+8801918942155",
+      "price": "100"
+    },
+    {
+      "name": "Nichols Marks",
+      "email": "nicholsmarks@quarx.com",
+      "phone": "+8801965979155",
+      "price": "200"
+    },
+    {
+      "name": "Orr Todd",
+      "email": "orrtodd@quarx.com",
+      "phone": "+8801718949375",
+      "price": "300"
+    },
+    {
+      "name": "Celeste Barrett",
+      "email": "celestebarrett@quarx.com",
+      "phone": "+8801818995175",
+      "price": "400"
+    },
+    {
+      "name": "Rodriguez Joseph",
+      "email": "rodriguezjoseph@quarx.com",
+      "phone": "+8801618935217",
+      "price": "500"
+    },
+    {
+      "name": "Forbes Witt",
+      "email": "forbeswitt@quarx.com",
+      "phone": "+8801718997364",
+      "price": "600"
+    }
+  ]

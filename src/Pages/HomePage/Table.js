@@ -1,26 +1,87 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import TableRow from './TableRow';
 
 const Table = () => {
+
+    const [bills, setBills] = useState([]);
+    useEffect( ()=>{
+        fetch('http://localhost:5000/bill')
+        .then(res => res.json())
+        .then(data => setBills(data))
+    } ,[])
+
+    const { register, handleSubmit } = useForm();
+
+
+    const onSubmit = data => {
+        console.log(data);
+        const url = `http://localhost:5000/bill`
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)  
+        })
+        .then(res => res.json())
+        .then(result => console.log(result));
+       
+    };
+
+
+
+
     return (
         <div>
 
+
+
             {/* Table navbar start */}
-            <div class="navbar bg-base-100 px-12">
+            <div class="navbar bg-blue-200 px-12">
                 <div class="flex-1 gap-6">
-                    <a className="normal-case text-2xl">Billings</a>
+                    <a className="normal-case text-xl">Billings</a>
+
                     <div class="form-control ">
                         <input type="text" placeholder="Search" class="input input-bordered input-sm w-full max-w-xs" />
                     </div>
                 </div>
 
-                <div >
-                    <button class="btn btn-primary btn-wide text-white">Add New Bill</button>
+                <div>
+
+                    <label for="my-modal-3" class="btn btn-primary  text-white modal-button">Add New Bill</label>
+
+                    <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+                    <div class="modal">
+                        <div class="modal-box relative">
+                            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+
+                        <form className='text-center mt-6' onSubmit={handleSubmit(onSubmit)}>
+                                <input type="text" placeholder='Full Name' className='mb-3 input input-bordered input-sm w-full max-w-xs'  {...register("name", { required: true, })} />
+
+                                <input type="email" placeholder='Enter Your Email' className='mb-3 input input-bordered input-sm w-full max-w-xs' {...register("email",)} />
+
+                                <input placeholder='Enter Phone Number' className='mb-3 input input-bordered input-sm w-full max-w-xs' type="number" {...register("phone",)} />
+
+                                <input placeholder='Enter Paid Amount' className='mb-3 input input-bordered input-sm w-full max-w-xs' type="number" {...register("price",)} />
+                                <br />
+                                <input className='btn btn-success text-white' type="submit" value="Add New Bill" />
+
+
+
+                            </form>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
             {/* Table navbar end */}
 
 
             {/* Main table start */}
+
+
 
             <div class="overflow-x-auto px-12 mt-4">
                 <table class="table table-compact w-full">
@@ -31,59 +92,31 @@ const Table = () => {
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Paid Amount</th>
+                            <th></th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Littel, Schaden and Vandervort</td>
-                            <td>Canada</td>
-                            <td>12/16/2020</td>
-                            
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Zemlak, Daniel and Leannon</td>
-                            <td>United States</td>
-                            <td>12/5/2020</td>
-                            
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>Brice Swyre</td>
-                            <td>Tax Accountant</td>
-                            <td>Carroll Group</td>
-                            <td>China</td>
-                            <td>8/15/2020</td>
-                        </tr>
-                        <tr>
-                            <th>4</th>
-                            <td>Marjy Ferencz</td>
-                            <td>Office Assistant I</td>
-                            <td>Rowe-Schoen</td>
-                            <td>Russia</td>
-                            <td>3/25/2021</td>
-                        </tr>
-                        <tr>
-                            <th>5</th>
-                            <td>Yancy Tear</td>
-                            <td>Community Outreach Specialist</td>
-                            <td>Wyman-Ledner</td>
-                            <td>Brazil</td>
-                            <td>5/22/2020</td>
-                        </tr>
-                      
+
+                         {
+                            bills.map(bill => <TableRow
+                                key={bill._id}
+                                bill={bill}
+                            ></TableRow>)
+                         }
+                        
                     </tbody>
                 </table>
             </div>
 
+            <div class="btn-group flex justify-center mt-20">
+                <button class="btn btn-outline">1</button>
+                <button class="btn btn-outline">2</button>
+                <button class="btn btn-outline">3</button>
+                <button class="btn btn-outline">Next</button>
+            </div>
 
-        </div>
+        </div >
     );
 };
 
